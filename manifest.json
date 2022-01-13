@@ -1,0 +1,46 @@
+{
+    "manifest_version": 2,
+    "name": "Время работы",
+    "description": "Время работы",
+    "version": "1.0",
+    "content_scripts": [
+        {
+            "matches": [
+                "https://work.metallprofil.ru/*"
+            ],
+            "js": [
+                "jquery-3.5.1.min.js",
+                "content.js",
+                "popup.js"
+            ],
+            "css": [
+                "content.css"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "icons": {
+    
+    },
+    "background": {
+        "persistent": false,
+        "scripts": [
+            "background.js",
+            "jquery-3.5.1.min.js"
+        ]
+    },
+    "browser_action": {
+        "default_title": " Время работы ",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "tabs",
+        "https://work.metallprofil.ru/",
+        "<all_urls>",
+        "activeTab",
+        "contextMenus",
+        "desktopCapture",
+        "tabCapture",
+        "tts"
+    ]
+}
