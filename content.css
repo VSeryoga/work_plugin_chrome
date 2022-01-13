@@ -1,0 +1,130 @@
+#popup{
+    width: 300px;
+    max-height: 100%;
+    height: fit-content;
+    position: absolute;right: 0px;z-index: 100;top: 0px;box-shadow: -5px 5px 10px;
+    background-color: black;
+    overflow-y: auto;
+}
+
+
+
+#popup_content{
+    background-color: red;
+    /* cursor: pointer; */
+    position: absolute;
+    z-index: 10000000;
+    color: white;
+    padding: 5px 10px;
+    box-shadow: 0px 0px 18px black;
+    right: 0px;
+}
+
+#popup_content:not(.bg-red){
+    -webkit-animation-name: glow;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes glow {
+    0% {
+      -webkit-box-shadow: 0 0 0px red;
+    }
+    100% {
+        -webkit-box-shadow: 0 0 0px red, 0 0 60px red;
+    }
+  }
+
+#popup_content.bg-red{
+    background-color: green;
+}
+#start{
+    cursor: pointer;
+}
+#stop{
+    display: inline-block;
+    padding-left: 10px;
+    cursor: pointer;
+}
+#show_all{
+    display: inline-block;
+    margin-right: 10px;
+}
+#menu{
+    display: inline-block;
+    cursor: pointer;
+    width: 10px;
+    height: 100%;
+    text-align: center;
+}
+.q{
+    background-color: black;
+    width: 3px;
+    height: 3px;
+    
+    margin: auto;
+    margin-top: 3px;
+}
+#result_timer{
+    display: none;
+    position:absolute;
+    background-color: white;
+    z-index: 1000000;
+    padding: 10px;
+    box-shadow: 0px 0px 10px 0px
+}
+#result_timer #content{
+    margin-top: 5px;
+    font-size: 14px;
+}
+#close_result_timer{
+    position: absolute;
+    right: 3px;
+    top: -6px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+.allCat{
+    display: none;
+}
+.RadTreeView .rtLI {
+    padding-left: 0px !important;
+}
+.subcatFolder{
+    font-weight: bold;
+    background: #e5e5e5;
+    font-size: 13px;
+}
+.rtImg{
+    display: none !important;
+}
+.subcatFolder .rtText{
+    padding-left: 10px;
+}
+#show_all span{
+    cursor: pointer;
+}
+
+
+#mainBlock tr{
+    display: block !important;
+}
+.delete-day{
+    color: red;
+    font-style: italic;
+    cursor: pointer;
+    font-size: 12px;
+    float: right;
+}
+.day{
+    font-weight: bold;
+}
+.task{
+    cursor: pointer;
+}
+.time_task.active{
+    font-weight: bold;
+}
