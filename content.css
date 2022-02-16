@@ -128,3 +128,20 @@
 .time_task.active{
     font-weight: bold;
 }
+.id_task_menu{
+    font-weight: bold;
+    padding-right: 5px;
+}
+.toolbar-container{
+    display: none;
+}
+#sum_time{
+    float: right;
+    border: 1px solid grey;
+    padding: 0px 4px;
+    font-size: 12px;
+}
+#report{
+    display: inline-block;
+    cursor: pointer;
+}
