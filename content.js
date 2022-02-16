@@ -20,7 +20,7 @@ $(document).ready(function () {
         }
     };
 
-    $("body").prepend('<div id="popup_content"><div id="show_all"><div id="start">Старт</div></div><div id="menu"><div class="q"></div><div class="q"></div><div class="q"></div></div></div>');
+    $("body").prepend('<div id="popup_content"><div id="show_all"><div id="start">Старт</div></div><div id="menu"><div class="q"></div><div class="q"></div><div class="q"></div></div><div id="report" title="Отчет по задачам в консоли">O</div></div>');
     $("body").prepend('<div id="result_timer"><div id="close_result_timer">x</div><div id="content"></div></div>');
 
 
@@ -62,6 +62,26 @@ $(document).ready(function () {
             }
         };
 
+    });
+
+    $('body').on('click', '#report', function () {
+        let text = '';
+        $('#tcLeftTrees_treeFavourites  > ul > li > ul > li').each(function (i, el) {
+            
+            let status = $(el).find('.subcatFolder .rtText').text();
+            if (status == "На бою (завершена)") {
+                console.log(text);
+                
+                return;
+            }
+            // console.log(status);
+            $(el).find('.id_task_menu').each(function (a, e) {
+                let task = $(e).text();
+                // console.log(task + ' - ' + status);
+                text += task + ' - ' + status + "\n";
+            });
+           
+        });
     });
 
 
@@ -108,6 +128,7 @@ $(document).ready(function () {
 
         let request = work.openCursor();
         let result = {};
+        let sumTime = {};
 
         request.onsuccess = function () {
             let cursor = request.result;
@@ -115,7 +136,6 @@ $(document).ready(function () {
             if (cursor) {
                 let key = cursor.key;
                 let value = cursor.value;
-                console.log(value.stopTime);
                 
                 if (value.stopTime == false) {
                     result[value.startTime.toLocaleDateString()][value.workId] = 'work';
@@ -124,6 +144,11 @@ $(document).ready(function () {
 
                     if (result[value.startTime.toLocaleDateString()] == undefined) {
                         result[value.startTime.toLocaleDateString()] = {};
+                    }
+                    if (sumTime[value.startTime.toLocaleDateString()] == undefined) {
+                        sumTime[value.startTime.toLocaleDateString()] = sec;
+                    } else {
+                        sumTime[value.startTime.toLocaleDateString()] += sec;
                     }
 
                     if (result[value.startTime.toLocaleDateString()][value.workId] == undefined) {
@@ -138,8 +163,9 @@ $(document).ready(function () {
                 // console.log(result);
                 let html = '';
                 let today = new Date().toLocaleDateString();
+                
                 for (let i in result) {
-                    let deleteButtton = '';
+                    let deleteButtton = '<span id="sum_time">' + secondsToHms(sumTime[i]) + '</span>';
                     if (i != today) {
                         deleteButtton = '<span class="delete-day" data-day="' + i + '">Удалить</span>';
                     }
@@ -155,6 +181,9 @@ $(document).ready(function () {
                     }
                 }
                 $('#result_timer #content').html(html);
+                $('#result_timer sum_time').text(secondsToHms(sumTime));
+                console.log(sumTime);
+                
                 $('#result_timer').show();
             }
 
@@ -259,17 +288,20 @@ $(document).ready(function () {
                     frame.find('.extparamsBlock[id="3"]').css({ 'display': 'none' });
                     frame.find('.extparamsBlock[id="4"]').css({ 'display': 'none' });
                     frame.find('.mainTaskFormAspx').css({ 'max-width': '99%' });
+
+
+
                 }, 1000);
 
-
+                
             }
+             
         } else {
             isStatus = false;
         }
 
     }, 2000);
 
-    console.log(urlParams('task'));
 
 
     let taskId = urlParams('task');
@@ -282,7 +314,10 @@ $(document).ready(function () {
     $('body').on('click', '.time_task', function () {
         $(this).addClass('active');
     })
-
+    $('.tasksFavourits .rtIn').each(function (i,el) {
+        let id = $(el).attr('href').replace('javascript:void(OpenTask(null, ', '').replace('))', '');
+        $(el).find('.rtText').prepend('<span  class="id_task_menu">' + id + '</span>');
+    });
 });
 function urlParams(key) {
     var p = window.location.search;
