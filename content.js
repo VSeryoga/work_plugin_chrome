@@ -84,6 +84,15 @@ $(document).ready(function () {
         });
     });
 
+    $('#tcLeftTrees_treeFavourites  > ul > li > ul > li').each(function (i, el) {
+            
+        let status = $(el).find('.subcatFolder .rtText').text();
+
+        let num = $(el).find('ul > li').length - 1;
+        
+        $(el).find('.subcatFolder .rtText').text(status + ' (' + String(num) + ')');
+    });
+
 
     $('body').on('click', '#start', function () {
 
