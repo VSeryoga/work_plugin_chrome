@@ -69,16 +69,16 @@ $(document).ready(function () {
         $('#tcLeftTrees_treeFavourites  > ul > li > ul > li').each(function (i, el) {
             
             let status = $(el).find('.subcatFolder .rtText').text();
-            if (status == "На бою (завершена)") {
-                console.log(text);
+            if (status.indexOf("На бою") != -1 || status.indexOf("Прочее") != -1) {
+                // console.log(text);
                 
                 return;
             }
             // console.log(status);
             $(el).find('.id_task_menu').each(function (a, e) {
                 let task = $(e).text();
-                // console.log(task + ' - ' + status);
-                text += task + ' - ' + status + "\n";
+                // console.log(task + ' - ' + status.split(' (')[0]);
+                text += task + ' - ' + status.split(' (')[0] + "\n";
             });
            
         });
@@ -96,7 +96,7 @@ $(document).ready(function () {
 
     $('body').on('click', '#start', function () {
 
-        let taskId = $("#Edit").contents().find('#SecFrame').contents().find('.copy-task-number').attr('data-clipboard-text');
+        let taskId = $("#container-3 .ng-star-inserted").contents().find('frame').contents().find('.mtftb-tasknum i').attr('data-clipboard-text');
 
         if ($(this).hasClass('work')) {
 
@@ -323,10 +323,15 @@ $(document).ready(function () {
     $('body').on('click', '.time_task', function () {
         $(this).addClass('active');
     })
-    $('.tasksFavourits .rtIn').each(function (i,el) {
-        let id = $(el).attr('href').replace('javascript:void(OpenTask(null, ', '').replace('))', '');
-        $(el).find('.rtText').prepend('<span  class="id_task_menu">' + id + '</span>');
-    });
+    
+    setTimeout(function () {
+        $('.fv-item.is-task').each(function (i, el) {
+
+            let id = $(el).attr('data-href').replace('javascript:void(OpenTask(null, ', '').replace('))', '');
+            
+            $(el).find('.fv-label').prepend('<span  class="id_task_menu">' + id + '</span>');
+        });
+    }, 2000);
 });
 function urlParams(key) {
     var p = window.location.search;
