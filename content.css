@@ -130,7 +130,7 @@
 }
 .id_task_menu{
     font-weight: bold;
-    padding-right: 5px;
+    padding-right: 2px;
 }
 .toolbar-container{
     display: none;
@@ -144,4 +144,16 @@
 #report{
     display: inline-block;
     cursor: pointer;
+}
+.menu-wrapper .folder-wrapper{
+    padding-left: 0px !important;
+}
+.fv-item {
+    padding: 0px !important;
+    min-height: 24px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+}
+.fv-label-wrapper .fv-label-badge{
+    display: none !important;
 }
